@@ -6,7 +6,7 @@
     <title>Stake Stats | Estadísticas de Combate</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -35,7 +35,7 @@
         <div class="container">
             
             <a class="navbar-brand d-flex align-items-center gap-3" href="#inicio" style="text-decoration: none;">
-                <img src="images/logo.png" alt="Logo Stake" height="50">
+                <img src="../images/logo.png" alt="Logo Stake" height="50">
                 <span class="text-white" style="font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: bold; letter-spacing: 2px;">
                     STAKE <span style="color: var(--rojo-stake);">STATS</span>
                 </span>
@@ -62,7 +62,7 @@
         <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-center gap-5 h-100">
             
             <div class="fighter-card text-center order-2 order-lg-1">
-                <img src="images/g.png" alt="Peleador 1" class="img-fluid img-peleador" style="border-bottom: 5px solid var(--rojo-stake); max-height: 400px;">
+                <img src="../images/g.png" alt="Peleador 1" class="img-fluid img-peleador" style="border-bottom: 5px solid var(--rojo-stake); max-height: 400px;">
                 <h2 class="mt-3 fw-bold" style="font-family: 'Oswald', sans-serif;">CAMPEÓN</h2>
             </div>
             
@@ -81,7 +81,7 @@
             </div>
 
             <div class="fighter-card text-center order-3 order-lg-3">
-                <img src="images/t.png" alt="Peleador 2" class="img-fluid img-peleador" style="border-bottom: 5px solid var(--rojo-stake); max-height: 400px;">
+                <img src="../images/t.png" alt="Peleador 2" class="img-fluid img-peleador" style="border-bottom: 5px solid var(--rojo-stake); max-height: 400px;">
                 <h2 class="mt-3 fw-bold" style="font-family: 'Oswald', sans-serif;">CONTENDIENTE</h2>
             </div>
             
@@ -97,9 +97,9 @@
             </div>
             
             <div class="col-12 col-md-5 d-flex justify-content-center align-items-end mb-4 mb-md-0 gap-4">
-                <img src="images/g.png" alt="Gaethje" style="height: 180px; width: auto; object-fit: cover; object-position: top;">
+                <img src="../images/g.png" alt="Gaethje" style="height: 180px; width: auto; object-fit: cover; object-position: top;">
                 <span class="fs-4 fw-bold mb-4" style="color: var(--gris-texto);">VS</span>
-                <img src="images/t.png" alt="Topuria" style="height: 180px; width: auto; object-fit: cover; object-position: top;">
+                <img src="../images/t.png" alt="Topuria" style="height: 180px; width: auto; object-fit: cover; object-position: top;">
             </div>
             
             <div class="col-12 col-md-5 text-center text-md-start">
@@ -120,9 +120,9 @@
             </div>
             
             <div class="col-12 col-md-5 d-flex justify-content-center align-items-end mb-4 mb-md-0 gap-4">
-                <img src="images/g.png" alt="Peleador 3" style="height: 180px; width: auto; object-fit: cover; object-position: top; filter: brightness(0.7);">
+                <img src="../images/g.png" alt="Peleador 3" style="height: 180px; width: auto; object-fit: cover; object-position: top; filter: brightness(0.7);">
                 <span class="fs-4 fw-bold mb-4" style="color: var(--gris-texto);">VS</span>
-                <img src="images/t.png" alt="Peleador 4" style="height: 180px; width: auto; object-fit: cover; object-position: top; filter: brightness(0.7);">
+                <img src="../images/t.png" alt="Peleador 4" style="height: 180px; width: auto; object-fit: cover; object-position: top; filter: brightness(0.7);">
             </div>
             
             <div class="col-12 col-md-5 text-center text-md-start">

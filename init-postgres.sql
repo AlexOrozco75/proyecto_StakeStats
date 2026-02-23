@@ -1,0 +1,2 @@
+ALTER USER user WITH PASSWORD 'password';
+GRANT ALL PRIVILEGES ON DATABASE database TO user;
