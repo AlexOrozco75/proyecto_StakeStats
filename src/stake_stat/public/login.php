@@ -155,6 +155,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_ingresar'])) {
         <div class="text-center mt-4">
             <a href="#" style="color: var(--primary, #d20a0a); text-decoration: none; font-size: 0.9rem;">¿Olvidaste tu contraseña?</a>
         </div>
+
+        <div class="text-center mt-3">
+    <p style="font-size: 0.9rem; color: #888;">
+        ¿No tienes cuenta? <a href="registro.php" style="color: var(--rojo-stake, #d20a0a); text-decoration: none; font-weight: bold;">Regístrate aquí</a>
+    </p>
+</div>
     </div>
 
 </body>
