@@ -57,6 +57,6 @@ include 'header.php';
 </div>
 
 <?php 
-// ESTA LÍNEA TAMBIÉN ES VITAL: Cierra la página correctamente
+
 include 'footer.php'; 
 ?>
