@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../admin/sistema.class.php';
+require_once '../admin/config/sistema.class.php';
 
 $mensaje_error = '';
 

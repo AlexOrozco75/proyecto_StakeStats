@@ -1,6 +1,6 @@
 <?php
 // admin/agregar_producto.php
-require_once 'sistema.class.php';
+require_once '../config/sistema.class.php';
 
 $sistema = new sistema();
 $sistema->conectar();
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-include 'header.php';
+include '../../includes/admin_header.php'; 
 ?>
 
 <div class="container-fluid px-4 py-4">
@@ -98,4 +98,4 @@ include 'header.php';
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../../includes/admin_footer.php'; ?>

@@ -2,7 +2,7 @@
 // admin/index.php
 
 // ESTA LÍNEA ES VITAL: Es la que trae el diseño oscuro, Bootstrap y el menú
-include 'header.php';
+include '../includes/admin_header.php';
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-color: #2a2a2c !important;">
@@ -58,5 +58,5 @@ include 'header.php';
 
 <?php 
 
-include 'footer.php'; 
+include '../includes/admin_footer.php'; 
 ?>

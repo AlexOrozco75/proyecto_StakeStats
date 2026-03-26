@@ -1,6 +1,6 @@
 <?php
 // admin/productos.php
-require_once 'sistema.class.php';
+require_once '../config/sistema.class.php';
 
 $sistema = new sistema();
 $sistema->conectar();
@@ -17,7 +17,7 @@ try {
     die("Error en la base de datos: " . $e->getMessage());
 }
 
-include 'header.php'; // Incluimos tu cabecera admin
+include '../../includes/admin_header.php'; 
 ?>
 
 <div class="container-fluid px-4 py-4">
@@ -50,7 +50,16 @@ include 'header.php'; // Incluimos tu cabecera admin
                         <tr>
                             <td><?= $prod['id'] ?></td>
                             <td>
-                                <img src="<?= htmlspecialchars($prod['imagen_url']) ?>" alt="Producto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #2a2a2c;">
+                                <?php 
+                                    // 1. Extraemos solo el nombre del archivo (ej. "playera.jpg")
+                                    $nombre_archivo = basename($prod['imagen_url']); 
+                                    
+                                    // 2. Forzamos la ruta a la carpeta images original en la raíz
+                                    // Sube 2 niveles: admin/tienda_admin/ -> admin/ -> raiz/images/
+                                    $ruta_imagen_correcta = '../../images/' . $nombre_archivo;
+                                ?>
+                                <img src="<?= htmlspecialchars($ruta_imagen_correcta) ?>" alt="Producto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #2a2a2c;">
+                            </td>
                             </td>
                             <td class="fw-bold"><?= htmlspecialchars($prod['nombre']) ?></td>
                             <td><?= htmlspecialchars($prod['categoria_nombre'] ?? 'Sin Categoría') ?></td>
@@ -77,4 +86,4 @@ include 'header.php'; // Incluimos tu cabecera admin
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../../includes/admin_footer.php'; ?>

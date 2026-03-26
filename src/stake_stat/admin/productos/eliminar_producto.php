@@ -1,6 +1,6 @@
 <?php
 // admin/eliminar_producto.php
-require_once 'sistema.class.php';
+require_once '../config/sistema.class.php';
 
 session_start();
 // Verificación de seguridad

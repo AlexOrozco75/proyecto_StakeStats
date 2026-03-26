@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include '../includes/public_header.php'; ?>
 
 <section class="main-event position-relative pt-5 d-flex align-items-center" style="min-height: 85vh; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1920x1080'); background-size: cover; background-position: center; margin-top: -80px;">
     
@@ -76,4 +76,4 @@
     </div>
 </section>
 
-<?php include 'footer.php'; ?>
+<?php include '../includes/public_footer.php'; ?>

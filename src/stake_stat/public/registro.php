@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Asegúrate de que la ruta a tu clase sistema sea la correcta desde esta carpeta
-require_once '../admin/sistema.class.php'; 
+require_once '../admin/config/sistema.class.php'; 
 
 $mensaje_error = '';
 $mensaje_exito = '';

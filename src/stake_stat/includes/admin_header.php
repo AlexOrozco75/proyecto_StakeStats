@@ -34,7 +34,7 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
     <nav class="navbar navbar-expand-lg navbar-dark navbar-admin sticky-top shadow">
         <div class="container-fluid px-4">
             
-            <a class="navbar-brand d-flex align-items-center gap-2 admin-title text-uppercase" href="index.php">
+            <a class="navbar-brand d-flex align-items-center gap-2 admin-title text-uppercase" href="/stake_stat/admin/index.php">
                 <i class="bi bi-shield-lock-fill text-danger fs-3"></i>
                 Stake Stats <span class="text-danger">ADMIN</span>
             </a>
@@ -46,10 +46,10 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
             <div class="collapse navbar-collapse" id="adminNavbar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2 text-uppercase admin-title" style="font-size: 0.9rem;">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="index.php"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                        <a class="nav-link text-white" href="/stake_stat/admin/index.php"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="productos.php"><i class="bi bi-box-seam me-1"></i> Productos</a>
+                        <a class="nav-link text-white" href="/stake_stat/admin/productos/productos.php"><i class="bi bi-box-seam me-1"></i> Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="peleadores.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
                 </ul>
                 
                 <div class="d-flex align-items-center gap-3">
-                    <a href="../public/index.php" class="btn btn-outline-light btn-sm admin-title" target="_blank">
+                    <a href="/stake_stat/public/index.php" class="btn btn-outline-light btn-sm admin-title" target="_blank">
                         <i class="bi bi-eye me-1"></i> Ver Sitio
                     </a>
                     <a href="../public/logout.php" class="btn btn-danger btn-sm admin-title">

@@ -1,7 +1,7 @@
 <?php
 // tienda.php
 session_start();
-require_once '../admin/sistema.class.php';
+require_once '../admin/config/sistema.class.php';
 
 // --- LÓGICA DEL CARRITO DE COMPRAS ---
 if (!isset($_SESSION['carrito'])) {
@@ -48,7 +48,7 @@ try {
 }
 
 // 1. INCLUIMOS EL HEADER (Después de la lógica PHP para que el contador se actualice)
-include 'header.php'; 
+include '../includes/public_header.php'; 
 ?>
 
 <style>
@@ -232,4 +232,4 @@ include 'header.php';
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../includes/public_footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
 // admin/tienda_admin/modificar_producto.php
-require_once 'sistema.class.php';
+require_once '../config/sistema.class.php';
 
 $sistema = new sistema();
 $sistema->conectar();
@@ -33,17 +33,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
         $nombre_archivo = time() . "_" . basename($_FILES['imagen']['name']);
         
-        // Ruta física para guardar el archivo (subimos dos niveles desde tienda_admin)
+        // 1. CORRECCIÓN: Ruta física para subir el archivo
+        // Sube dos niveles desde admin/tienda_admin/ hasta la raíz y entra a images/
         $ruta_fisica_destino = "../../images/" . $nombre_archivo;
         
-        // Ruta lógica que guardaremos en la BD (para que la tienda pública lo lea como ../images/...)
+        // Ruta lógica que guardaremos en la BD (para que en la BD siga diciendo ../images/...)
         $ruta_bd = "../images/" . $nombre_archivo;
 
         if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_fisica_destino)) {
             $imagen_url = $ruta_bd; // Actualizamos la variable con la nueva ruta
             
             // Opcional: Eliminar la imagen anterior del servidor
-            $ruta_fisica_anterior = "../" . $imagen_actual; 
+            // Extraemos solo el nombre de la imagen vieja para buscarla en la carpeta
+            $nombre_imagen_vieja = basename($imagen_actual);
+            $ruta_fisica_anterior = "../../images/" . $nombre_imagen_vieja; 
+            
             if ($imagen_actual && file_exists($ruta_fisica_anterior) && strpos($imagen_actual, 'default-product.jpg') === false) {
                 unlink($ruta_fisica_anterior);
             }
@@ -85,8 +89,8 @@ try {
 $stmt = $sistema->db->query("SELECT id, nombre FROM categorias_productos");
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Incluimos el header (subiendo un nivel hacia la carpeta admin)
-include 'header.php'; 
+
+include '../../includes/admin_header.php'; 
 ?>
 
 <div class="container-fluid px-4 py-4">
@@ -144,9 +148,12 @@ include 'header.php';
                     
                     <?php if (!empty($producto['imagen_url'])): ?>
                         <?php 
-                            // Como la BD guarda "../images/foto.jpg" y estamos en admin/tienda_admin/
-                            // le agregamos un "../" extra para que el HTML suba los 2 niveles necesarios
-                            $ruta_visualizacion = "" . $producto['imagen_url'];
+                            // 2. CORRECCIÓN: Mostrar la imagen actual
+                            // Obtenemos solo el nombre del archivo
+                            $nombre_archivo_actual = basename($producto['imagen_url']); 
+                            
+                            // Forzamos la ruta a la carpeta images en la raíz
+                            $ruta_visualizacion = "../../images/" . $nombre_archivo_actual;
                         ?>
                         <img src="<?= htmlspecialchars($ruta_visualizacion) ?>" alt="Producto actual" class="img-thumbnail mb-3" style="max-width: 200px; max-height: 200px; object-fit: cover; border-color: #333; background-color: #1a1a1a;">
                     <?php else: ?>
@@ -169,4 +176,4 @@ include 'header.php';
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../../includes/admin_footer.php'; ?>
