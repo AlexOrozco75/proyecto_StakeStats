@@ -8,14 +8,14 @@ $mensaje_error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_ingresar'])) {
     
     $correo = trim($_POST['correo']);
-    $password_ingresada = $_POST['contraseña'];
+    $password_ingresada = $_POST['contrasena'];
 
     $sistema = new sistema();
     $sistema->conectar();
 
     try {
         // Hacemos un JOIN de tus 3 tablas para traer el usuario y su rol de un solo golpe
-        $sql = "SELECT u.id_usuario, u.correo, u.contraseña, r.rol 
+        $sql = "SELECT u.id_usuario, u.correo, u.contrasena, r.rol 
                 FROM usuario u 
                 LEFT JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario
                 LEFT JOIN rol r ON ur.id_rol = r.id_rol
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_ingresar'])) {
         $usuario_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Si el usuario existe, verificamos la contraseña
-        if ($usuario_db && password_verify($password_ingresada, $usuario_db['contraseña'])) {
+        if ($usuario_db && password_verify($password_ingresada, $usuario_db['contrasena'])) {
             
             // ¡Contraseña correcta! Guardamos sus datos en la sesión
             $_SESSION['id_usuario'] = $usuario_db['id_usuario'];
@@ -145,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_ingresar'])) {
             </div>
             
             <div class="mb-5">
-                <label for="contraseña" class="form-label fw-bold text-white text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña" required placeholder="••••••••">
+                <label for="contrasena" class="form-label fw-bold text-white text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" required placeholder="••••••••">
             </div>
 
             <button type="submit" name="btn_ingresar" class="btn btn-stake w-100 py-3 fs-5 fw-bold">INGRESAR</button>

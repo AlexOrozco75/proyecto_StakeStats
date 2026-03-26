@@ -52,13 +52,13 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
                         <a class="nav-link text-white" href="/stake_stat/admin/productos/productos.php"><i class="bi bi-box-seam me-1"></i> Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="peleadores.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
+                        <a class="nav-link text-white" href="/stake_stat/admin/peleadores/index.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="eventos.php"><i class="bi bi-calendar-event me-1"></i> Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="usuarios.php"><i class="bi bi-people me-1"></i> Usuarios</a>
+                        <a class="nav-link text-white" href="/stake_stat/admin/usuarios/index.php"><i class="bi bi-people me-1"></i> Usuarios</a>
                     </li>
                 </ul>
                 
