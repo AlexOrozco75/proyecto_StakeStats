@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagen_url = '../images/default-product.jpg'; // Imagen por defecto
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
         $nombre_archivo = time() . "_" . basename($_FILES['imagen']['name']);
-        $ruta_destino = "../images/" . $nombre_archivo;
+        $ruta_destino = "../../images/" . $nombre_archivo;
 
         if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_destino)) {
             $imagen_url = $ruta_destino; // Guardamos la ruta que necesita tienda.php

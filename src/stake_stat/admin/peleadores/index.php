@@ -28,6 +28,9 @@ include '../../includes/admin_header.php';
         <h1 class="h2 text-uppercase text-white m-0" style="font-family: 'Oswald', sans-serif;">
             Roster de <span class="text-danger">Peleadores</span>
         </h1>
+        <a href="reporte_roster.php" target="_blank" class="btn btn-danger">
+    <i class="bi bi-file-earmark-pdf-fill"></i> Descargar Roster PDF
+        </a>
         <a href="crear.php" class="btn btn-danger fw-bold" style="font-family: 'Oswald', sans-serif;">
             <i class="bi bi-plus-lg me-1"></i> NUEVO PELEADOR
         </a>
