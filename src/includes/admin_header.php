@@ -46,13 +46,13 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
             <div class="collapse navbar-collapse" id="adminNavbar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2 text-uppercase admin-title" style="font-size: 0.9rem;">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/stake_stat/admin/index.php"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                        <a class="nav-link text-white" href="/admin/index.php"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/stake_stat/admin/productos/productos.php"><i class="bi bi-box-seam me-1"></i> Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/stake_stat/admin/peleadores/index.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
+                        <a class="nav-link text-white" href="/admin/peleadores/index.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="eventos.php"><i class="bi bi-calendar-event me-1"></i> Eventos</a>
