@@ -3,6 +3,14 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// --- LÓGICA DE RUTAS INTELIGENTES ---
+// Detectamos si el archivo actual está dentro de la carpeta "club"
+$en_club = (strpos($_SERVER['PHP_SELF'], '/club/') !== false);
+
+// Si estamos en "club", necesitamos retroceder un nivel extra
+$ruta_public = $en_club ? '../' : '';
+$ruta_raiz   = $en_club ? '../../' : '../';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +20,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Stake Stats | Estadísticas de Combate</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="<?php echo $ruta_raiz; ?>css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -44,13 +52,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="container">
             
             <?php 
-                // Detectamos en qué página estamos actualmente
                 $pagina_actual = basename($_SERVER['PHP_SELF']);
-                // Si estamos en el index, el logo solo sube hacia arriba. Si no, nos lleva al index.
-                $link_logo = ($pagina_actual == 'index.php') ? '#inicio' : 'index.php';
+                // Si estamos en el index principal, sube. Si no, lleva al index principal con su ruta correcta
+                $link_logo = ($pagina_actual == 'index.php' && !$en_club) ? '#inicio' : $ruta_public . 'index.php';
             ?>
             <a class="navbar-brand d-flex align-items-center gap-3" href="<?php echo $link_logo; ?>" style="text-decoration: none;">
-                <img src="../images/logo.png" alt="Logo Stake" height="50">
+                <img src="<?php echo $ruta_raiz; ?>images/logo.png" alt="Logo Stake" height="50">
                 <span class="text-white" style="font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: bold; letter-spacing: 2px;">
                     STAKE <span style="color: var(--rojo-stake, #d20a0a);">STATS</span>
                 </span>
@@ -62,17 +69,22 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <div class="collapse navbar-collapse" id="menuPrincipal">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-4 align-items-center">
-                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="index.php">Eventos</a></li>
-                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="rankings.php">Rankings</a></li>
-                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="peleadores.php">Peleadores</a></li>
-                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="highlights.php">Highlights</a></li>
-                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="tienda.php">Tienda</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="<?php echo $ruta_public; ?>index.php">Eventos</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="<?php echo $ruta_public; ?>rankings.php">Rankings</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="<?php echo $ruta_public; ?>peleadores.php">Peleadores</a></li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-animado text-white fw-bold text-uppercase text-nowrap" href="<?php echo $ruta_public; ?>club/index.php">
+                            FIGHT <span style="color: var(--rojo-stake, #d20a0a);">CLUB</span>
+                        </a>
+                    </li>   
+                    
+                    <li class="nav-item"><a class="nav-link nav-link-animado text-white fw-bold text-uppercase" href="<?php echo $ruta_public; ?>tienda.php">Tienda</a></li>
                     
                     <li class="nav-item ms-lg-2">
                         <a class="nav-link position-relative text-white cart-icon" data-bs-toggle="offcanvas" href="#carritoOffcanvas" role="button" style="cursor: pointer;">
                             <i class="bi bi-cart3 fs-4"></i>
                             <?php 
-                                // Verificamos si existe el carrito en la sesión y contamos los productos
                                 $total_items = isset($_SESSION['carrito']) ? count($_SESSION['carrito']) : 0;
                                 if ($total_items > 0): 
                             ?>
@@ -94,15 +106,16 @@ if (session_status() === PHP_SESSION_NONE) {
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="menuUsuario" style="border: 1px solid var(--rojo-stake, #d20a0a);">
                                 <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
-                                    <li><a class="dropdown-item fw-bold text-warning" href="../admin/index.php"><i class="bi bi-gear-fill me-2"></i>Panel de Control</a></li>
+                                    <li><a class="dropdown-item fw-bold text-warning" href="<?php echo $ruta_raiz; ?>admin/index.php"><i class="bi bi-gear-fill me-2"></i>Panel de Control</a></li>
                                     <li><hr class="dropdown-divider" style="border-color: #333;"></li>
                                 <?php endif; ?>
-                                <li><a class="dropdown-item fw-bold text-danger" href="logout.php"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+                                <li><a class="dropdown-item fw-bold text-white" href="<?php echo $ruta_public; ?>club/perfil.php"><i class="bi bi-person-badge-fill me-2"></i>Mi Muro</a></li>
+                                <li><a class="dropdown-item fw-bold text-danger" href="<?php echo $ruta_public; ?>logout.php"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     <?php else: ?>
                         <li class="nav-item ms-lg-3">
-                            <a href="login.php" class="btn btn-login-nav d-flex align-items-center gap-2 fw-bold px-4 py-2" style="font-family: 'Oswald', sans-serif; letter-spacing: 1px; border-radius: 4px;">
+                            <a href="<?php echo $ruta_public; ?>login.php" class="btn btn-login-nav d-flex align-items-center gap-2 fw-bold px-4 py-2" style="font-family: 'Oswald', sans-serif; letter-spacing: 1px; border-radius: 4px;">
                                 <i class="bi bi-person-circle fs-5"></i> INGRESAR
                             </a>
                         </li>

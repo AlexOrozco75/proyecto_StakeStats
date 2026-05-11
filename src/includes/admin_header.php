@@ -34,7 +34,7 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
     <nav class="navbar navbar-expand-lg navbar-dark navbar-admin sticky-top shadow">
         <div class="container-fluid px-4">
             
-            <a class="navbar-brand d-flex align-items-center gap-2 admin-title text-uppercase" href="/stake_stat/admin/index.php">
+            <a class="navbar-brand d-flex align-items-center gap-2 admin-title text-uppercase" href="/admin/index.php">
                 <i class="bi bi-shield-lock-fill text-danger fs-3"></i>
                 Stake Stats <span class="text-danger">ADMIN</span>
             </a>
@@ -47,26 +47,23 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['rol']) || $_SESSION['ro
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4 gap-2 text-uppercase admin-title" style="font-size: 0.9rem;">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/admin/index.php"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="<?php echo BASE_URL; ?>admin/productos/productos.php"><i class="bi bi-box-seam me-1"></i> Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/stake_stat/admin/productos/productos.php"><i class="bi bi-box-seam me-1"></i> Productos</a>
+                        <a class="nav-link text-white" href="<?php echo BASE_URL; ?>admin/peleadores/index.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/admin/peleadores/index.php"><i class="bi bi-person-bounding-box me-1"></i> Peleadores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="eventos.php"><i class="bi bi-calendar-event me-1"></i> Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/stake_stat/admin/usuarios/index.php"><i class="bi bi-people me-1"></i> Usuarios</a>
+                        <a class="nav-link text-white" href="<?php echo BASE_URL; ?>admin/usuarios/index.php"><i class="bi bi-people me-1"></i> Usuarios</a>
                     </li>
                 </ul>
                 
                 <div class="d-flex align-items-center gap-3">
-                    <a href="/stake_stat/public/index.php" class="btn btn-outline-light btn-sm admin-title" target="_blank">
+                    <a href="<?php echo BASE_URL; ?>index.php" class="btn btn-outline-light btn-sm admin-title" target="_blank">
                         <i class="bi bi-eye me-1"></i> Ver Sitio
                     </a>
-                    <a href="../public/logout.php" class="btn btn-danger btn-sm admin-title">
+                    <a href="<?php echo BASE_URL; ?>public/logout.php" class="btn btn-danger btn-sm admin-title">
                         <i class="bi bi-box-arrow-right me-1"></i> Salir
                     </a>
                 </div>

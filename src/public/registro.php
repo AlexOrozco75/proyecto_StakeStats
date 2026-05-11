@@ -9,8 +9,9 @@ $mensaje_exito = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_registrar'])) {
     
     $correo = trim($_POST['correo']);
-    $password = $_POST['contraseña'];
-    $confirm_password = $_POST['confirmar_contraseña'];
+    // CAMBIO: Ahora recoge 'contrasena' sin la 'ñ'
+    $password = $_POST['contrasena'];
+    $confirm_password = $_POST['confirmar_contrasena'];
 
     // 1. Validar que las contraseñas sean iguales
     if ($password !== $confirm_password) {
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_registrar'])) {
                 // 3. Insertar el nuevo usuario
                 $hash = password_hash($password, PASSWORD_DEFAULT); // Encriptamos la contraseña
                 
-                $sql_insert = "INSERT INTO usuario (correo, contraseña) VALUES (:correo, :contrasena)";
+                // CAMBIO: Se inserta en la columna 'contrasena'
+                $sql_insert = "INSERT INTO usuario (correo, contrasena) VALUES (:correo, :contrasena)";
                 $stmt_insert = $sistema->db->prepare($sql_insert);
                 $stmt_insert->bindParam(':correo', $correo, PDO::PARAM_STR);
                 $stmt_insert->bindParam(':contrasena', $hash, PDO::PARAM_STR);
@@ -144,13 +146,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_registrar'])) {
             </div>
             
             <div class="mb-3">
-                <label for="contraseña" class="form-label fw-bold" style="font-size: 0.85rem; letter-spacing: 1px; color: #aaa;">CONTRASEÑA</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Mínimo 6 caracteres" required>
+                <label for="contrasena" class="form-label fw-bold" style="font-size: 0.85rem; letter-spacing: 1px; color: #aaa;">CONTRASEÑA</label>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Mínimo 6 caracteres" required>
             </div>
 
             <div class="mb-4">
-                <label for="confirmar_contraseña" class="form-label fw-bold" style="font-size: 0.85rem; letter-spacing: 1px; color: #aaa;">CONFIRMAR CONTRASEÑA</label>
-                <input type="password" class="form-control" id="confirmar_contraseña" name="confirmar_contraseña" placeholder="Repite tu contraseña" required>
+                <label for="confirmar_contrasena" class="form-label fw-bold" style="font-size: 0.85rem; letter-spacing: 1px; color: #aaa;">CONFIRMAR CONTRASEÑA</label>
+                <input type="password" class="form-control" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Repite tu contraseña" required>
             </div>
 
             <button type="submit" name="btn_registrar" class="btn btn-registro w-100 fw-bold">CREAR CUENTA</button>

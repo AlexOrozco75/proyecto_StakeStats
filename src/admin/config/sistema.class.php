@@ -1,6 +1,7 @@
 <?php
 require_once(__dir__."/config.php");
 
+define('BASE_URL', 'http://localhost:8080/');
 class sistema{
     
     var $db;

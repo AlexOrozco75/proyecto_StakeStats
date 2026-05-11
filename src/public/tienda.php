@@ -120,7 +120,7 @@ include '../includes/public_header.php';
 <main class="tienda-container container">
     <div class="text-center mb-5 pb-4" style="border-bottom: 1px solid var(--border, #2a2a2c);">
         <h1 style="font-family: 'Oswald', sans-serif; font-size: 3.5rem; letter-spacing: 2px; margin-bottom: 10px;">TIENDA OFICIAL</h1>
-        <p class="text-muted text-uppercase letter-spacing-1">Equipamiento y merchandise exclusivo de combate</p>
+        <p class="text-white-50 fs-5  letter-spacing-1">Equipamiento y merchandise exclusivo de combate</p>
     </div>
 
     <div class="row g-4">

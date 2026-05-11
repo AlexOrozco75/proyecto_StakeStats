@@ -5,12 +5,15 @@ require_once '../admin/config/sistema.class.php';
 $sistema = new sistema();
 $sistema->conectar();
 
-// 1. Recibir la categoría seleccionada por la URL (si es que existe)
+// 1. Recibir parámetros por URL (Género por defecto 'M', y Categoría si existe)
+$genero_seleccionado = (isset($_GET['genero']) && $_GET['genero'] == 'F') ? 'F' : 'M';
 $categoria_seleccionada = isset($_GET['categoria']) ? (int)$_GET['categoria'] : null;
 
 try {
-    // 2. Consultar todas las categorías para armar los botones del filtro
-    $stmtCats = $sistema->db->query("SELECT id, nombre FROM categorias_peso ORDER BY limite_peso_lb ASC");
+    // 2. Consultar categorías de peso correspondientes AL GÉNERO SELECCIONADO
+    $sqlCats = "SELECT id, nombre FROM categorias_peso WHERE genero = :genero ORDER BY limite_peso_lb ASC";
+    $stmtCats = $sistema->db->prepare($sqlCats);
+    $stmtCats->execute([':genero' => $genero_seleccionado]);
     $categorias = $stmtCats->fetchAll(PDO::FETCH_ASSOC);
 
     // 3. Armar la consulta de peleadores (Dinámica)
@@ -19,18 +22,20 @@ try {
                    pa.nombre AS pais, pa.codigo_iso
             FROM peleadores p
             LEFT JOIN categorias_peso c ON p.categoria_peso_id = c.id
-            LEFT JOIN paises pa ON p.pais_id = pa.id";
+            LEFT JOIN paises pa ON p.pais_id = pa.id
+            WHERE p.genero = :genero";
             
-    // Si hay una categoría seleccionada, filtramos la consulta
+    // Si hay una categoría seleccionada, agregamos el filtro
     if ($categoria_seleccionada) {
-        $sql .= " WHERE p.categoria_peso_id = :cat_id";
+        $sql .= " AND p.categoria_peso_id = :cat_id";
     }
     
     $sql .= " ORDER BY p.nombre ASC";
             
     $stmt = $sistema->db->prepare($sql);
     
-    // Si filtramos, le pasamos el ID de la categoría a la consulta
+    // Bind de parámetros
+    $stmt->bindParam(':genero', $genero_seleccionado, PDO::PARAM_STR);
     if ($categoria_seleccionada) {
         $stmt->bindParam(':cat_id', $categoria_seleccionada, PDO::PARAM_INT);
     }
@@ -62,9 +67,9 @@ include '../includes/public_header.php';
     }
     
     .fighter-card:hover {
-        transform: translateY(-10px); /* Hace que la tarjeta "flote" hacia arriba */
-        box-shadow: 0 15px 35px rgba(210, 10, 10, 0.4) !important; /* Resplandor rojo oscuro */
-        border-color: #d20a0a !important; /* El borde se pinta de rojo */
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(210, 10, 10, 0.4) !important;
+        border-color: #d20a0a !important;
     }
 </style>
 
@@ -76,19 +81,31 @@ include '../includes/public_header.php';
         <p class="text-white-50 fs-5">Conoce a los atletas de Stake Stats y revisa sus estadísticas.</p>
     </div>
 
+    <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group shadow-lg" role="group" style="border: 1px solid #d20a0a; border-radius: 6px; overflow: hidden;">
+            <a href="peleadores.php?genero=M" class="btn btn-<?= $genero_seleccionado == 'M' ? 'danger' : 'dark text-white' ?> px-4 py-2 fw-bold text-uppercase" style="font-family: 'Oswald', sans-serif;">
+                <i class="bi bi-gender-male me-2"></i>Varonil
+            </a>
+            <a href="peleadores.php?genero=F" class="btn btn-<?= $genero_seleccionado == 'F' ? 'danger' : 'dark text-white' ?> px-4 py-2 fw-bold text-uppercase" style="font-family: 'Oswald', sans-serif;">
+                <i class="bi bi-gender-female me-2"></i>Femenil
+            </a>
+        </div>
+    </div>
+
     <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
-        <a href="peleadores.php" class="btn <?= !$categoria_seleccionada ? 'btn-danger' : 'btn-outline-danger' ?> rounded-pill px-4 fw-bold text-uppercase" style="font-family: 'Oswald', sans-serif;">
-            Todos
+        <a href="peleadores.php?genero=<?= $genero_seleccionado ?>" class="btn <?= !$categoria_seleccionada ? 'btn-danger' : 'btn-outline-danger' ?> rounded-pill px-4 fw-bold text-uppercase" style="font-family: 'Oswald', sans-serif;">
+            Todos los Pesos
         </a>
         
         <?php foreach($categorias as $cat): ?>
-            <a href="peleadores.php?categoria=<?= $cat['id'] ?>" 
+            <a href="peleadores.php?genero=<?= $genero_seleccionado ?>&categoria=<?= $cat['id'] ?>" 
                class="btn <?= ($categoria_seleccionada === $cat['id']) ? 'btn-danger' : 'btn-outline-danger' ?> rounded-pill px-4 fw-bold text-uppercase" 
                style="font-family: 'Oswald', sans-serif;">
                 <?= htmlspecialchars($cat['nombre']) ?>
             </a>
         <?php endforeach; ?>
     </div>
+
     <div class="row g-4">
         <?php if(!empty($peleadores)): ?>
             <?php foreach($peleadores as $fighter): ?>
@@ -158,13 +175,13 @@ include '../includes/public_header.php';
                             </div>
                         </div>
                     </a>
-                    </div>
+                </div>
             <?php endforeach; ?>
         <?php else: ?>
             <div class="col-12 text-center py-5">
                 <i class="bi bi-search text-danger display-1 mb-3"></i>
-                <h3 class="text-white">No hay peleadores registrados en esta categoría.</h3>
-                <a href="peleadores.php" class="btn btn-outline-light mt-3">Ver todos los peleadores</a>
+                <h3 class="text-white">Aún no hay atletas registrados en esta sección.</h3>
+                <a href="peleadores.php?genero=<?= $genero_seleccionado ?>" class="btn btn-outline-light mt-3">Ver todos los pesos</a>
             </div>
         <?php endif; ?>
     </div>
